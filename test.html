@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/p5.min.js"></script>
+        <script>
+        var x1 = [0,0,0,0,0,0,0,0,0,0];
+        var y1 = [0,0,0,0,0,0,0,0,0,0];
+        var x2 = [0,0,0,0,0,0,0,0,0,0];
+        var y2 = [0,0,0,0,0,0,0,0,0,0];
+
+        var x1_after = [0,0,0,0,0,0,0,0,0,0];
+        var y1_after = [0,0,0,0,0,0,0,0,0,0];
+        var x2_after = [0,0,0,0,0,0,0,0,0,0];
+        var y2_after = [0,0,0,0,0,0,0,0,0,0];
+
+        var w = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var h = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var rectwidth = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+        var i=0;
+        var radius=0;
+        var k=0;
+
+            function setup() {                          // **change** void setup() to function setup()
+              createCanvas(640, 360);                   // **change** size() to createCanvas()
+              //線の終点セット
+              x1[0]=0;
+              y1[0]=Math.floor( Math.random() * height ) ;
+              x2[0]=Math.floor( Math.random() * width ) ;
+              y2[0]=Math.floor( Math.random() * height ) ;
+              for(i=1;i<9;i++){
+                x1[i]=x2[i-1];
+                y1[i]=y2[i-1];
+                x2[i]=Math.floor( Math.random() * width ) ;
+                y2[i]=Math.floor( Math.random() * height ) ;
+              }
+
+              x1_after[0]=0;
+              y1_after[0]=Math.floor( Math.random() * height ) ;
+              x2_after[0]=Math.floor( Math.random() * width ) ;
+              y2_after[0]=Math.floor( Math.random() * height ) ;
+              for(i=1;i<9;i++){
+                x1_after[i]=x2_after[i-1];
+                y1_after[i]=y2_after[i-1];
+                x2_after[i]=Math.floor( Math.random() * width ) ;
+                y2_after[i]=Math.floor( Math.random() * height ) ;
+              }
+
+              for(i=0;i<30;i++){
+                w[i]=Math.floor( Math.random() * width/2 );
+                h[i]=Math.floor( Math.random() * height/2 );
+                rectwidth[i]=Math.floor( Math.random() * height );
+              }
+            }
+
+            function draw(){
+              background("rgba(0, 0, 0, 1)");
+
+              fill("rgba(0, 26, 255, 0.1)");
+              stroke("rgba(24, 186, 255, 0.5)");
+              for(i=0;i<15;i++){
+                rect(w[i],h[i],rectwidth[i]+Math.floor( Math.random() * 3 )-1.5,rectwidth[i]+Math.floor( Math.random() * 3 )-1.5);
+              }
+
+              fill("rgb(130, 209, 148)");
+              stroke("green")
+
+              for(i=0;i<10;i++){
+                if(i==8){
+                  line(x1[i],y1[i],width,y2[i]);
+                }else{
+                  line(x1[i],y1[i],x2[i],y2[i]);
+                }
+                if(i>=1 && i<=8){
+                  radius=Math.floor( Math.random() * 15 );
+                  ellipse(x1[i],y1[i],radius,radius);
+                }
+                x1[i]=x1_after[i]-(x1_after[i]-x1[i])/1.01;
+                x2[i]=x2_after[i]-(x2_after[i]-x2[i])/1.01;
+                y1[i]=y1_after[i]-(y1_after[i]-y1[i])/1.01;
+                y2[i]=y2_after[i]-(y2_after[i]-y2[i])/1.01;
+                if(k==2000){
+                  x1_after[0]=0;
+                  y1_after[0]=Math.floor( Math.random() * height ) ;
+                  x2_after[0]=Math.floor( Math.random() * width ) ;
+                  y2_after[0]=Math.floor( Math.random() * height ) ;
+                  for(i=1;i<9;i++){
+                    x1_after[i]=x2_after[i-1];
+                    y1_after[i]=y2_after[i-1];
+                    x2_after[i]=Math.floor( Math.random() * width ) ;
+                    y2_after[i]=Math.floor( Math.random() * height ) ;
+                  }
+                  k=0;
+                }
+                k++;
+              }
+            }
+
+        </script>
+    </body>
+</html>
